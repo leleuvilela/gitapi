@@ -1,6 +1,5 @@
 const api = require("../services/ApiService.js");
 const parse = require("parse-link-header");
-
 class UserController {
   async index(req, res) {
     if (req.query.since && isNaN(req.query.since)) {
@@ -18,7 +17,7 @@ class UserController {
         if (links[link].since) {
           res.header(
             link,
-            `http://localhost:3333/api/users?since=${links[link].since}`
+            `${process.env.APP_URL}/api/users?since=${links[link].since}`
           );
         }
       }
@@ -58,7 +57,7 @@ class UserController {
       for (const link in links) {
         res.header(
           link,
-          `http://localhost:3333/api/users/${req.params.username}/repos?page=${links[link].page}`
+          `${process.env.APP_URL}/api/users/${req.params.username}/repos?page=${links[link].page}`
         );
       }
 
